@@ -9,6 +9,8 @@ if (!smtpHost || !smtpPort || !smtpUser || !smtpPass) {
   console.error(
     'SMTP configuration is missing. Please check your environment variables.'
   );
+} else {
+  console.log('SMTP configuration loaded successfully.');
 }
 
 const transporter = nodemailer.createTransport({
@@ -35,7 +37,7 @@ export async function sendEmail({
   html,
 }: EmailData): Promise<void> {
   const mailOptions = {
-    from: smtpUser,
+    from: `${process.env.NEXT_PUBLIC_EMAIL_FROM} <${smtpUser}>`,
     to,
     subject,
     text,
@@ -44,9 +46,7 @@ export async function sendEmail({
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully:', info.response);
   } catch (error: any) {
-    console.error('Error sending email:', error.message, error.stack);
     throw new Error(`Failed to send email: ${error.message}`);
   }
 }
