@@ -86,7 +86,7 @@ export default function Home() {
               required
             />
             <button type="submit" className={styles.button} disabled={loading}>
-              {loading ? 'Sending...' : 'Send Full Interpretation'}
+              {loading ? 'Sending....' : 'Send Full Interpretation'}
             </button>
           </form>
         </div>
