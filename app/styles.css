@@ -1,0 +1,113 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.day-theme,
+.night-theme {
+  min-height: 100%;
+  height: auto;
+}
+
+.day-theme {
+  background-color: #e5e5e5;
+  color: #2e2e2e;
+}
+
+.night-theme {
+  background-color: #2e2e2e;
+  color: #f0e7ff;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  text-align: center;
+  color: inherit;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.textarea {
+  height: 150px;
+  color: inherit;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ccc, #949090);
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+  overflow: hidden;
+  resize: none;
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 60%;
+  background-color: inherit;
+  color: inherit;
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.button {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button:disabled {
+  background-color: #cccccc;
+}
+
+.day-theme .button {
+  background-color: #2e2e2e;
+  color: #ccc;
+}
+
+.night-theme .button {
+  background-color: #ccc;
+  color: #2e2e2e;
+}
+
+.error {
+  color: red;
+}
+
+.emailForm {
+  margin-top: 20px;
+}
+
+.day-theme button,
+.night-theme button,
+.day-theme textarea,
+.night-theme textarea,
+.day-theme input,
+.night-theme input,
+.day-theme .emailForm,
+.night-theme .emailForm {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.day-theme textarea,
+.night-theme textarea {
+  border-color: #ccc;
+  background-color: inherit;
+  color: #000000;
+}
