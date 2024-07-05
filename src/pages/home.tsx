@@ -18,7 +18,7 @@ const Home = () => {
           )}
         </button>
       </div>
-      <DreamList />
+      <DreamList darkMode={false} />
       <DreamAI />
     </div>
   );

@@ -1,0 +1,71 @@
+.container {
+  @apply max-w-2xl mx-auto p-6;
+}
+
+.title {
+  @apply text-3xl font-bold mb-6 text-center;
+}
+
+.searchInput {
+  @apply w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300;
+}
+
+.searchInput.dark {
+  @apply bg-gray-700 text-white;
+}
+
+.searchInput.light {
+  @apply bg-white text-gray-900;
+}
+
+.dreamList {
+  @apply space-y-4;
+}
+
+.dreamItem {
+  @apply rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-lg;
+}
+
+.dreamItem.dark {
+  @apply bg-gray-800;
+}
+
+.dreamItem.light {
+  @apply bg-white;
+}
+
+.dreamLink {
+  @apply block p-4 transition duration-300;
+}
+
+.dreamLink.dark {
+  @apply hover:bg-gray-700;
+}
+
+.dreamLink.light {
+  @apply hover:bg-gray-50;
+}
+
+.dreamTitle {
+  @apply text-xl font-semibold mb-2;
+}
+
+.dreamTitle.dark {
+  @apply text-white;
+}
+
+.dreamTitle.light {
+  @apply text-gray-900;
+}
+
+.dreamDescription {
+  @apply text-sm;
+}
+
+.dreamDescription.dark {
+  @apply text-gray-300;
+}
+
+.dreamDescription.light {
+  @apply text-gray-600;
+}

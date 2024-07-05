@@ -1,41 +1,50 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Dream } from '../interfaces/dream';
 import dreams from '../data/dreams.json';
+import styles from '../styles/DreamList.module.css';
 
-const DreamList = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+interface DreamListProps {
+  darkMode: boolean;
+}
 
-  const filteredDreams = dreams.filter((dream) =>
+const DreamList: React.FC<DreamListProps> = ({ darkMode }) => {
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
+  const filteredDreams = dreams.filter((dream: Dream) =>
     dream.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const theme = darkMode ? 'dark' : 'light';
+
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-6 text-center">Dream Journal</h2>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Dream Journal</h2>
       <div className="mb-6">
         <input
           type="text"
           placeholder="Search dreams..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setSearchTerm(e.target.value)
+          }
+          className={`${styles.searchInput} ${styles[theme]}`}
         />
       </div>
-      <ul className="space-y-4">
-        {filteredDreams.map((dream) => (
+      <ul className={styles.dreamList}>
+        {filteredDreams.map((dream: Dream) => (
           <li
             key={dream.slug}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-lg"
+            className={`${styles.dreamItem} ${styles[theme]}`}
           >
             <Link
               href={`/dreams/${dream.slug}`}
-              className="block p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-300"
+              className={`${styles.dreamLink} ${styles[theme]}`}
             >
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+              <h3 className={`${styles.dreamTitle} ${styles[theme]}`}>
                 {dream.title}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
+              <p className={`${styles.dreamDescription} ${styles[theme]}`}>
                 {dream.description.slice(0, 100)}...
               </p>
             </Link>
