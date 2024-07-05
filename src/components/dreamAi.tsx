@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import styles from '../styles.css';
+import styles from '../styles/DreamAI.module.css';
 
 export default function DreamAI() {
   const [dream, setDream] = useState('');
@@ -74,7 +74,7 @@ export default function DreamAI() {
   };
 
   return (
-    <div className={`container ${styles.container}`}>
+    <div className={styles.dreamAIContainer}>
       <h1 className={`title ${styles.title}`}>Dream Interpreter</h1>
       <form onSubmit={handleSubmit} className={`form ${styles.form}`}>
         <textarea

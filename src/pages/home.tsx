@@ -1,13 +1,10 @@
-'use client';
-
-import 'tailwindcss/tailwind.css';
-import './styles.css';
 import { useState } from 'react';
-import DreamAI from './pages/dreamAi';
+import DreamAI from '../components/dreamAi';
+import DreamList from '../components/DreamList';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 
-function DreamInterpreter() {
+const Home = () => {
   const [darkMode, setDarkMode] = useState(false);
 
   return (
@@ -21,9 +18,10 @@ function DreamInterpreter() {
           )}
         </button>
       </div>
+      <DreamList />
       <DreamAI />
     </div>
   );
-}
+};
 
-export default DreamInterpreter;
+export default Home;
