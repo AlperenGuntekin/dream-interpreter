@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { GoogleAnalytics } from '@next/third-parties/google';
 import { useRouter } from 'next/router';
-import Script from 'next/script';
 import type { AppProps } from 'next/app';
-import Head from 'next/head';
 import Header from '@/src/utils/header';
 import Footer from '@/src/utils/footer';
 import '../styles/globals.css';
+import Script from 'next/script';
+import Head from 'next/head';
 
 declare global {
   interface Window {
@@ -60,31 +59,20 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="Explore the meanings behind your dreams with Dream Interpreter. Our advanced AI analyzes and interprets your dreams, providing insights into your subconscious mind. Find detailed dream explanations, share your experiences, and get personalized interpretations. Discover the secrets of your dreams today!"
         />
         <link rel="icon" href="/favicon.ico" />
-        <GoogleAnalytics gaId="G-4N47E5SB99" />
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-4N47E5SB99`}
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-4N47E5SB99', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5633161613176687"
-          crossOrigin="anonymous"
-        ></script>
       </Head>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-4N47E5SB99"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-4N47E5SB99');
+        `}
+      </Script>
       <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <Component
         {...pageProps}

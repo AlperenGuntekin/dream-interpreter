@@ -12,16 +12,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
-        <title>Dream Interpretation</title>
-        <meta
-          name="description"
-          content="Explore the meanings behind your dreams with Dream Interpreter. Our advanced AI analyzes and interprets your dreams, providing insights into your subconscious mind. Find detailed dream explanations, share your experiences, and get personalized interpretations. Discover the secrets of your dreams today!"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <body className={inter.className}>{children}</body>
-      　<GoogleAdsense pId="5633161613176687" />
+      <GoogleAdsense pId="5633161613176687" />
     </html>
   );
 }
