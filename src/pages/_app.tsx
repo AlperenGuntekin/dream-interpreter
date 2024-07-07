@@ -10,6 +10,7 @@ import '../styles/globals.css';
 declare global {
   interface Window {
     gtag: (...args: any[]) => void;
+    adsbygoogle: any;
   }
 }
 
@@ -19,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     const handleRouteChange = (url: URL) => {
-      if (window.gtag) {
+      if (typeof window.gtag !== 'undefined') {
         window.gtag('config', 'G-4N47E5SB99', {
           page_path: url,
         });
