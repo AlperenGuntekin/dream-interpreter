@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from '../styles/DreamAI.module.css';
 
-export default function DreamAI() {
+export default function DreamAI({ darkMode }: { darkMode: boolean }) {
   const [dream, setDream] = useState('');
   const [interpretation, setInterpretation] = useState('');
   const [email, setEmail] = useState('');
@@ -73,33 +73,43 @@ export default function DreamAI() {
     }
   };
 
+  const theme = darkMode ? 'dark' : 'light';
+
   return (
-    <div className={styles.dreamAIContainer}>
-      <h1 className={`title ${styles.title}`}>Dream Interpreter</h1>
-      <form onSubmit={handleSubmit} className={`form ${styles.form}`}>
+    <div className={`${styles.dreamAIContainer} ${styles[theme]}`}>
+      <p className={styles.paraph}>
+        Didn't find what you were looking for? <br /> How about explaining your
+        dream in more detail?
+      </p>
+      <form
+        onSubmit={handleSubmit}
+        className={`${styles.form} ${styles[theme]}`}
+      >
         <textarea
           ref={textareaRef}
           value={dream}
           onChange={handleDreamChange}
           placeholder="Enter your dream..."
-          className={`textarea ${styles.textarea}`}
+          className={`${styles.textarea} ${styles[theme]}`}
           required
           spellCheck={false}
         />
-        <div className={`charCount ${styles.charCount} flex justify-end mb-1`}>
+        <div
+          className={`${styles.charCount} ${styles[theme]} flex justify-end mb-1`}
+        >
           {dream.length} / 1700 characters
         </div>
         <button
           type="submit"
-          className={`button ${styles.button}`}
+          className={`${styles.button} ${styles[theme]}`}
           disabled={loading}
         >
           {loading ? 'Interpreting...' : 'Interpret Dream'}
         </button>
       </form>
-      {error && <p className={`error ${styles.error}`}>{error}</p>}
+      {error && <p className={`${styles.error} ${styles[theme]}`}>{error}</p>}
       {showEmailForm && (
-        <div className={`emailForm ${styles.emailForm}`}>
+        <div className={`${styles.emailForm} ${styles[theme]}`}>
           <p className="mb-2">
             Partial interpretation: {interpretation.substring(0, 150)}...
           </p>
@@ -112,12 +122,12 @@ export default function DreamAI() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email for full interpretation"
-              className={`input ${styles.input} mb-0`}
+              className={`${styles.input} ${styles[theme]} mb-0`}
               required
             />
             <button
               type="submit"
-              className={`button ${styles.button}`}
+              className={`${styles.button} ${styles[theme]}`}
               disabled={loading}
             >
               {loading ? 'Sending...' : 'Send Full Interpretation'}

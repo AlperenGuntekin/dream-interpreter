@@ -1,71 +1,63 @@
 .container {
-  @apply max-w-2xl mx-auto p-6;
+  @apply p-4;
 }
 
 .title {
-  @apply text-3xl font-bold mb-6 text-center;
+  @apply text-3xl font-bold text-center mb-6;
 }
 
 .searchInput {
-  @apply w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300;
-}
-
-.searchInput.dark {
-  @apply bg-gray-700 text-white;
+  @apply w-full p-2 border border-gray-300 rounded-lg;
 }
 
 .searchInput.light {
   @apply bg-white text-gray-900;
 }
 
+.searchInput.dark {
+  @apply bg-gray-700 text-white;
+}
+
 .dreamList {
-  @apply space-y-4;
+  @apply list-none p-0 mt-4;
 }
 
 .dreamItem {
-  @apply rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-lg;
-}
-
-.dreamItem.dark {
-  @apply bg-gray-800;
+  @apply mb-4 p-4 border rounded-lg;
 }
 
 .dreamItem.light {
-  @apply bg-white;
+  @apply bg-white border-gray-300;
+}
+
+.dreamItem.dark {
+  @apply bg-gray-800 border-gray-600;
 }
 
 .dreamLink {
-  @apply block p-4 transition duration-300;
-}
-
-.dreamLink.dark {
-  @apply hover:bg-gray-700;
+  @apply no-underline;
 }
 
 .dreamLink.light {
-  @apply hover:bg-gray-50;
-}
-
-.dreamTitle {
-  @apply text-xl font-semibold mb-2;
-}
-
-.dreamTitle.dark {
-  @apply text-white;
-}
-
-.dreamTitle.light {
   @apply text-gray-900;
 }
 
-.dreamDescription {
-  @apply text-sm;
+.dreamLink.dark {
+  @apply text-white;
 }
 
-.dreamDescription.dark {
-  @apply text-gray-300;
+.dreamTitle {
+  @apply text-xl font-bold;
+}
+
+.dreamDescription {
+  @apply text-gray-600;
 }
 
 .dreamDescription.light {
   @apply text-gray-600;
+}
+
+.dreamDescription.dark {
+  @apply text-gray-300;
 }

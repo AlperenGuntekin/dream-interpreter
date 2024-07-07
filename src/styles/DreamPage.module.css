@@ -1,0 +1,71 @@
+.dreamPageContainer {
+  @apply min-h-screen bg-gray-100 flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8;
+}
+
+.dreamPageContainer.light {
+  @apply bg-white;
+}
+
+.dreamPageContainer.dark {
+  @apply bg-gray-900;
+}
+
+.dreamPageContent {
+  @apply max-w-4xl w-full rounded-lg shadow-md overflow-hidden p-6 mb-8;
+}
+
+.dreamPageContent.light {
+  @apply bg-white text-gray-900;
+}
+
+.dreamPageContent.dark {
+  @apply bg-gray-800 text-white;
+}
+
+.dreamPageTitle {
+  @apply text-4xl font-bold mb-6;
+}
+
+.dreamPageDescription {
+  @apply leading-relaxed;
+}
+
+.dreamPageLink {
+  @apply font-medium block no-underline;
+}
+
+.dreamPageLink.light {
+  @apply text-gray-800 hover:text-blue-700;
+}
+
+.dreamPageLink.dark {
+  @apply text-blue-300 hover:text-blue-500;
+}
+
+.relatedDreams {
+  @apply w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+.relatedDreamItem {
+  @apply p-4 rounded-lg shadow-md flex flex-col justify-between;
+}
+
+.relatedDreamItem.light {
+  @apply bg-white border border-gray-300;
+}
+
+.relatedDreamItem.dark {
+  @apply bg-gray-800 border border-gray-600;
+}
+
+.relatedDreamTitle {
+  @apply text-base font-bold mb-2;
+}
+
+.relatedDreamDescription.light {
+  @apply text-gray-700 mb-2;
+}
+
+.relatedDreamDescription.dark {
+  @apply text-gray-300 mb-2;
+}

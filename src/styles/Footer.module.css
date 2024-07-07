@@ -1,5 +1,13 @@
 .footer {
-  @apply bg-gray-800 text-white py-8;
+  @apply py-8 transition-colors;
+}
+
+.footer.light {
+  @apply bg-gray-100 text-gray-900;
+}
+
+.footer.dark {
+  @apply bg-gray-800 text-white;
 }
 
 .containerFooter {
@@ -19,9 +27,25 @@
 }
 
 .navLink {
-  @apply text-gray-300 hover:text-white transition duration-300;
+  @apply transition duration-300;
+}
+
+.navLink.light {
+  @apply text-gray-900 hover:text-gray-700;
+}
+
+.navLink.dark {
+  @apply text-gray-300 hover:text-white;
 }
 
 .copyright {
-  @apply text-center mt-4 text-gray-400 text-sm;
+  @apply text-center mt-4 text-sm;
+}
+
+.copyright.light {
+  @apply text-gray-700;
+}
+
+.copyright.dark {
+  @apply text-gray-400;
 }

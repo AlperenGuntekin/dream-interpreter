@@ -1,23 +1,43 @@
 .header {
-  @apply bg-gradient-to-r from-slate-900 to-gray-800 text-white shadow-md;
+  @apply p-4 flex items-center justify-between transition-colors;
+}
+
+.header.light {
+  @apply bg-gradient-to-r from-stone-400 to-zinc-500 text-gray-900;
+}
+
+.header.dark {
+  @apply bg-gray-800 text-white;
 }
 
 .containerHeader {
-  @apply container mx-auto px-4 py-4 flex justify-between items-center;
+  @apply flex items-center justify-between w-full max-w-6xl mx-auto;
 }
 
 .logo {
-  @apply text-2xl font-bold tracking-tight;
+  @apply flex items-center text-2xl font-bold;
 }
 
 .nav {
   @apply flex items-center space-x-4;
 }
 
-.navLink {
-  @apply text-white hover:text-gray-200 transition duration-300;
+.navLink.light {
+  @apply text-gray-900;
+}
+
+.navLink.dark {
+  @apply text-white;
 }
 
 .themeToggle {
-  @apply p-2 rounded-full bg-white/20 hover:bg-white/30 transition duration-300;
+  @apply p-2 rounded transition-colors;
+}
+
+.themeToggle.light {
+  @apply bg-gray-200 hover:bg-gray-300;
+}
+
+.themeToggle.dark {
+  @apply bg-gray-700 hover:bg-gray-600;
 }

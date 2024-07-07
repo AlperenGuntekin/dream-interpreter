@@ -9,6 +9,21 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
+html,
+body {
+  @apply transition-colors;
+}
+
+html.light,
+body.light {
+  @apply bg-white text-gray-900;
+}
+
+html.dark,
+body.dark {
+  @apply bg-gray-900 text-white;
+}
+
 .day-theme,
 .night-theme {
   min-height: 100%;

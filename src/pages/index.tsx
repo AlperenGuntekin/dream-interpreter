@@ -7,10 +7,15 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ darkMode }) => {
+  const theme = darkMode ? 'dark' : 'light';
+
   return (
-    <div className="container mx-auto px-4 py-8" style={{ minHeight: '80vh' }}>
+    <div
+      className={`container mx-auto px-4 py-8 ${theme}`}
+      style={{ minHeight: '80vh' }}
+    >
       <DreamList darkMode={darkMode} />
-      <DreamAI />
+      <DreamAI darkMode={darkMode} />
     </div>
   );
 };

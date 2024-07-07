@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Dream } from '../interfaces/dream';
-import dreams from '../data/dreams.json';
+import dreamsData from '../data/dreams.json';
 import styles from '../styles/DreamList.module.css';
 
 interface DreamListProps {
@@ -10,8 +10,15 @@ interface DreamListProps {
 
 const DreamList: React.FC<DreamListProps> = ({ darkMode }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [randomDreams, setRandomDreams] = useState<Dream[]>([]);
 
-  const filteredDreams = dreams.filter((dream: Dream) =>
+  useEffect(() => {
+    const dreams: Dream[] = dreamsData as Dream[];
+    const shuffledDreams = dreams.sort(() => 0.5 - Math.random());
+    setRandomDreams(shuffledDreams.slice(0, 10));
+  }, []);
+
+  const filteredDreams = randomDreams.filter((dream: Dream) =>
     dream.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
