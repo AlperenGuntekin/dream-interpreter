@@ -61,7 +61,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-4N47E5SB99"
+        src="https://www.googletagmanager.com/gtag/js?id=G-NMTNBVH54D"
         strategy="afterInteractive"
       />
       <Script id="google-analytics" strategy="afterInteractive">
@@ -70,7 +70,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'G-4N47E5SB99');
+          gtag('config', 'G-NMTNBVH54D');
         `}
       </Script>
       <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
