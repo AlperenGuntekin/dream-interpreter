@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import type { AppProps } from 'next/app';
@@ -59,6 +60,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="Explore the meanings behind your dreams with Dream Interpreter. Our advanced AI analyzes and interprets your dreams, providing insights into your subconscious mind. Find detailed dream explanations, share your experiences, and get personalized interpretations. Discover the secrets of your dreams today!"
         />
         <link rel="icon" href="/favicon.ico" />
+        <GoogleAnalytics gaId="G-4N47E5SB99" />
         <Script
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=G-4N47E5SB99`}
@@ -77,12 +79,11 @@ function MyApp({ Component, pageProps }: AppProps) {
             `,
           }}
         />
-        <Script
+        <script
           async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5633161613176687`}
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5633161613176687"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+        ></script>
       </Head>
       <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <Component
