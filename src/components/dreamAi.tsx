@@ -1,12 +1,21 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Typography,
+} from '@mui/material';
 import styles from '../styles/DreamAI.module.css';
 
-export default function DreamAI({ darkMode }: { darkMode: boolean }) {
+const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
   const [dream, setDream] = useState('');
   const [interpretation, setInterpretation] = useState('');
   const [email, setEmail] = useState('');
+  const [openModal, setOpenModal] = useState(false);
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -58,12 +67,16 @@ export default function DreamAI({ darkMode }: { darkMode: boolean }) {
         }),
       });
       if (!response.ok) throw new Error('Failed to send email');
-      alert('Full interpretation sent to your email!');
+      setOpenModal(true);
     } catch (err: any) {
       setError(`An error occurred while sending the email: ${err.message}`);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
   };
 
   const handleDreamChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -76,65 +89,87 @@ export default function DreamAI({ darkMode }: { darkMode: boolean }) {
   const theme = darkMode ? 'dark' : 'light';
 
   return (
-    <div className={`${styles.dreamAIContainer} ${styles[theme]}`}>
-      <p className={styles.paraph}>
-        Didn't find what you were looking for? <br /> How about explaining your
-        dream in more detail?
-      </p>
-      <form
-        onSubmit={handleSubmit}
-        className={`${styles.form} ${styles[theme]}`}
-      >
-        <textarea
-          ref={textareaRef}
-          value={dream}
-          onChange={handleDreamChange}
-          placeholder="Enter your dream..."
-          className={`${styles.textarea} ${styles[theme]}`}
-          required
-          spellCheck={false}
-        />
-        <div
-          className={`${styles.charCount} ${styles[theme]} flex justify-end mb-1`}
+    <>
+      <div className={`${styles.dreamAIContainer} ${styles[theme]}`}>
+        <p className={styles.paraph}>
+          Didn't find what you were looking for? <br /> How about explaining
+          your dream in more detail?
+        </p>
+        <form
+          onSubmit={handleSubmit}
+          className={`${styles.form} ${styles[theme]}`}
         >
-          {dream.length} / 1700 characters
-        </div>
-        <button
-          type="submit"
-          className={`${styles.button} ${styles[theme]}`}
-          disabled={loading}
-        >
-          {loading ? 'Interpreting...' : 'Interpret Dream'}
-        </button>
-      </form>
-      {error && <p className={`${styles.error} ${styles[theme]}`}>{error}</p>}
-      {showEmailForm && (
-        <div className={`${styles.emailForm} ${styles[theme]}`}>
-          <p className="mb-2">
-            Partial interpretation: {interpretation.substring(0, 150)}...
-          </p>
-          <form
-            onSubmit={handleEmailSubmit}
-            className="flex items-center justify-between"
+          <textarea
+            ref={textareaRef}
+            value={dream}
+            onChange={handleDreamChange}
+            placeholder="Enter your dream..."
+            className={`${styles.textarea} ${styles[theme]}`}
+            required
+            spellCheck={false}
+          />
+          <div
+            className={`${styles.charCount} ${styles[theme]} flex justify-end mb-1`}
           >
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email for full interpretation"
-              className={`${styles.input} ${styles[theme]} mb-0`}
-              required
-            />
-            <button
-              type="submit"
-              className={`${styles.button} ${styles[theme]}`}
-              disabled={loading}
+            {dream.length} / 1700 characters
+          </div>
+          <button
+            type="submit"
+            className={`${styles.button} ${styles[theme]}`}
+            disabled={loading}
+          >
+            {loading ? 'Interpreting...' : 'Interpret Dream'}
+          </button>
+        </form>
+        {error && <p className={`${styles.error} ${styles[theme]}`}>{error}</p>}
+        {showEmailForm && (
+          <div className={`${styles.emailForm} ${styles[theme]}`}>
+            <p className="mb-2">
+              Partial interpretation: {interpretation.substring(0, 150)}...
+            </p>
+            <form
+              onSubmit={handleEmailSubmit}
+              className="flex items-center justify-between"
             >
-              {loading ? 'Sending...' : 'Send Full Interpretation'}
-            </button>
-          </form>
-        </div>
-      )}
-    </div>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email for full interpretation"
+                className={`${styles.input} ${styles[theme]} mb-0`}
+                required
+              />
+              <button
+                type="submit"
+                className={`${styles.button} ${styles[theme]}`}
+                disabled={loading}
+              >
+                {loading ? 'Sending...' : 'Send Full Interpretation'}
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
+      <Dialog
+        open={openModal}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{'Email Sent'}</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            Full interpretation sent to your email!
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
-}
+};
+
+export default DreamAI;
