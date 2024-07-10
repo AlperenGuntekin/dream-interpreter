@@ -5,7 +5,7 @@ import dreamsData from '../../data/dreams.json';
 import Link from 'next/link';
 import styles from '../../styles/DreamPage.module.css';
 import DreamAI from '@/src/components/dreamAi';
-import Header from '@/src/utils/header';
+import GoogleAdsense from '@/src/utils/GoogleAdsense';
 
 interface DreamProps {
   dream: Dream;
@@ -30,6 +30,7 @@ const DreamPage = ({
 
   return (
     <div className={`${styles.dreamPageContainer} ${styles[theme]}`}>
+      <GoogleAdsense pId="ca-pub-5633161613176687" />
       <div className={`${styles.dreamPageContent} ${styles[theme]}`}>
         <h1 className={`${styles.dreamPageTitle} ${styles[theme]}`}>
           {dream.title}

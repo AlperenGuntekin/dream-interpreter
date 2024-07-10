@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const handleRouteChange = (url: URL) => {
       if (typeof window.gtag !== 'undefined') {
-        window.gtag('config', 'G-4N47E5SB99', {
+        window.gtag('config', 'G-NMTNBVH54D', {
           page_path: url,
         });
       }
