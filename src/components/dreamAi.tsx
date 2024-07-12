@@ -39,11 +39,13 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ dream }),
       });
-      if (!response.ok) throw new Error('Failed to interpret dream');
+      if (!response.ok)
+        throw new Error(`Failed to interpret dream: ${response.statusText}`);
       const data = await response.json();
       setInterpretation(data.interpretation);
       setShowEmailForm(true);
     } catch (err: any) {
+      console.error('Interpretation Error:', err);
       setError(
         'An error occurred while interpreting your dream. Please try again.'
       );
@@ -66,9 +68,11 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
           message: interpretation,
         }),
       });
-      if (!response.ok) throw new Error('Failed to send email');
+      if (!response.ok)
+        throw new Error(`Failed to send email: ${response.statusText}`);
       setOpenModal(true);
     } catch (err: any) {
+      console.error('Email Sending Error:', err);
       setError(`An error occurred while sending the email: ${err.message}`);
     } finally {
       setLoading(false);
