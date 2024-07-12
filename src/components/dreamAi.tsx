@@ -39,8 +39,12 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ dream }),
       });
-      if (!response.ok)
+
+      if (!response.ok) {
+        console.error('Response Error:', response);
         throw new Error(`Failed to interpret dream: ${response.statusText}`);
+      }
+
       const data = await response.json();
       setInterpretation(data.interpretation);
       setShowEmailForm(true);
@@ -163,7 +167,7 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
         <DialogTitle id="alert-dialog-title">{'Email Sent'}</DialogTitle>
         <DialogContent>
           <Typography variant="body1">
-            Full interpretation sent to your email!
+            <h1>Full interpretation sent to your email!</h1>
           </Typography>
         </DialogContent>
         <DialogActions>

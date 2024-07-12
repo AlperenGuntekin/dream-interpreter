@@ -12,6 +12,7 @@ export default async function handler(
         res.status(400).json({ error: 'Dream content is required' });
         return;
       }
+      console.log('Received dream content:', dream);
       const interpretation = await interpretDream(dream);
       res.status(200).json({ interpretation });
     } catch (error: any) {
