@@ -146,7 +146,7 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
         {showEmailForm && (
           <div className={`${styles.emailForm} ${styles[theme]}`}>
             <p className="mb-2">
-              Partial interpretation: {interpretation.substring(0, 150)}...
+              Partial interpretation: {interpretation.substring(0, 500)}...
             </p>
             <form
               onSubmit={handleEmailSubmit}
