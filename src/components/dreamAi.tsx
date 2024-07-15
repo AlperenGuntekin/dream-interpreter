@@ -72,8 +72,21 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
           message: interpretation,
         }),
       });
+
       if (!response.ok)
         throw new Error(`Failed to send email: ${response.statusText}`);
+
+      // Save the dream and email in the database
+      await fetch('/api/save-dream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          dream,
+          interpretation,
+        }),
+      });
+
       setOpenModal(true);
     } catch (err: any) {
       console.error('Email Sending Error:', err);
