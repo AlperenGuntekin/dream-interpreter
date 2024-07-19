@@ -1,4 +1,3 @@
-// next.config.js
 module.exports = {
   webpack: (config, { dev }) => {
     if (!dev) {
@@ -23,5 +22,6 @@ module.exports = {
       process.env.NEXT_PUBLIC_BREVO_EMAIL_SEND_TO,
     NEXT_PUBLIC_EMAIL_FROM: process.env.NEXT_PUBLIC_EMAIL_FROM,
     NEXT_PUBLIC_MONGODB_URI: process.env.NEXT_PUBLIC_MONGODB_URI,
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   },
 };
