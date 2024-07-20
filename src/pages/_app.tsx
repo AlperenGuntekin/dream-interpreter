@@ -58,7 +58,33 @@ function MyApp({ Component, pageProps }: AppProps) {
           name="description"
           content="Explore the meanings behind your dreams with Dream Interpreter. Our advanced AI analyzes and interprets your dreams, providing insights into your subconscious mind. Find detailed dream explanations, share your experiences, and get personalized interpretations. Discover the secrets of your dreams today!"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/dreamlogo.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'Dream Interpretation',
+              url: 'https://interpretationdream.com',
+              description:
+                'Explore the meanings behind your dreams with Dream Interpreter. Our advanced AI analyzes and interprets your dreams, providing insights into your subconscious mind. Find detailed dream explanations, share your experiences, and get personalized interpretations. Discover the secrets of your dreams today.',
+            }),
+          }}
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Dream Interpretation" />
+        <meta
+          property="og:description"
+          content="Explore the meanings behind your dreams with Dream Interpreter. Our advanced AI analyzes and interprets your dreams, providing insights into your subconscious mind."
+        />
+        <meta property="og:url" content="https://interpretationdream.com" />
+        <meta name="author" content="Alperen Guntekin" />
+        <meta
+          name="keywords"
+          content="dreams, interpretation, dream analysis"
+        />
       </Head>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-NMTNBVH54D"
