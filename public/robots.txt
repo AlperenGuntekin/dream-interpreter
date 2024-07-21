@@ -2,6 +2,9 @@
 User-agent: *
 Allow: /
 
+# Host
+Host: https://www.interpretationdream.com
+
 # Sitemaps
 Sitemap: https://www.interpretationdream.com/sitemap.xml
 Sitemap: https://www.interpretationdream.com/sitemap-0.xml
