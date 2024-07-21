@@ -31,6 +31,7 @@ const DreamPage = ({
   return (
     <div className={`${styles.dreamPageContainer} ${styles[theme]}`}>
       <GoogleAdsense pId="ca-pub-5633161613176687" />
+
       <div className={`${styles.dreamPageContent} ${styles[theme]}`}>
         <h1 className={`${styles.dreamPageTitle} ${styles[theme]}`}>
           {dream.title}
@@ -43,6 +44,17 @@ const DreamPage = ({
         </Link>
       </div>
       <DreamAI darkMode={darkMode} />
+      <div className={`${styles.dreamPageContent} ${styles[theme]}`}>
+        <a href="https://www.ai-tarot.online/" target="blank">
+          <h4 className={`${styles.dreamPageTitle} ${styles[theme]}`}>
+            How about free tarot reading with artificial intelligence?
+          </h4>
+          <p className={`${styles.dreamPageDescription} ${styles[theme]}`}>
+            You can click now to get a tarot reading on your birth chart,
+            specific questions and many other areas.
+          </p>
+        </a>
+      </div>
       <div className={`${styles.relatedDreams} ${styles[theme]} mt-4`}>
         {relatedDreams.map((relatedDream: Dream) => (
           <div
