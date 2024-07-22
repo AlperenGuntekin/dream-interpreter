@@ -99,6 +99,19 @@ function MyApp({ Component, pageProps }: AppProps) {
           gtag('config', 'G-NMTNBVH54D');
         `}
       </Script>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=AW-16636444635"
+        strategy="afterInteractive"
+      />
+      <Script id="google-ads" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'AW-16636444635');
+        `}
+      </Script>
       <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <Component
         {...pageProps}
