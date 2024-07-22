@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { Dream } from '../interfaces/dream';
 import dreamsData from '../data/dreams.json';
@@ -10,16 +10,27 @@ interface DreamListProps {
 
 const DreamList: React.FC<DreamListProps> = ({ darkMode }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [randomDreams, setRandomDreams] = useState<Dream[]>([]);
+  const [recentDreams, setRecentDreams] = useState<Dream[]>([]);
+  const [allDreams, setAllDreams] = useState<Dream[]>([]);
 
   useEffect(() => {
     const dreams: Dream[] = dreamsData as Dream[];
-    const shuffledDreams = dreams.sort(() => 0.5 - Math.random());
-    setRandomDreams(shuffledDreams.slice(0, 10));
+    setRecentDreams(dreams.slice(-10).reverse());
+    setAllDreams(dreams);
   }, []);
 
-  const filteredDreams = randomDreams.filter((dream: Dream) =>
-    dream.title.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredDreams = useMemo(() => {
+    if (!searchTerm) return recentDreams;
+    return allDreams.filter((dream: Dream) =>
+      dream.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [searchTerm, recentDreams, allDreams]);
+
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(e.target.value);
+    },
+    []
   );
 
   const theme = darkMode ? 'dark' : 'light';
@@ -32,16 +43,14 @@ const DreamList: React.FC<DreamListProps> = ({ darkMode }) => {
           type="text"
           placeholder="Search dreams..."
           value={searchTerm}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setSearchTerm(e.target.value)
-          }
+          onChange={handleSearchChange}
           className={`${styles.searchInput} ${styles[theme]}`}
         />
       </div>
       <ul className={styles.dreamList}>
-        {filteredDreams.map((dream: Dream) => (
+        {filteredDreams.map((dream: Dream, index: number) => (
           <li
-            key={dream.slug}
+            key={`${dream.slug}-${index}`}
             className={`${styles.dreamItem} ${styles[theme]}`}
           >
             <Link
