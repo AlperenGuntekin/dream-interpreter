@@ -90,6 +90,15 @@ function MyApp({ Component, pageProps }: AppProps) {
         src="https://www.googletagmanager.com/gtag/js?id=G-NMTNBVH54D"
         strategy="afterInteractive"
       />
+      <Script id="google-ads-conversion" strategy="afterInteractive">
+        {`
+        gtag('event', 'conversion', {
+            'send_to': 'AW-16636444635/lSWJCNXy7MQZENv_7_w9',
+            'value': 1.0,
+            'currency': 'TRY'
+        });
+        `}
+      </Script>
       <Script id="google-analytics" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
