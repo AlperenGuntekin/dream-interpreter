@@ -6,6 +6,7 @@ import Link from 'next/link';
 import styles from '../../styles/DreamPage.module.css';
 import DreamAI from '@/src/components/dreamAi';
 import GoogleAdsense from '@/src/utils/GoogleAdsense';
+import Image from 'next/image';
 
 interface DreamProps {
   dream: Dream;
@@ -36,6 +37,16 @@ const DreamPage = ({
         <h1 className={`${styles.dreamPageTitle} ${styles[theme]}`}>
           {dream.title}
         </h1>
+        {dream.image && (
+          <Image
+            src={dream.image}
+            alt={dream.title}
+            width={840}
+            height={350}
+            className="me-2 my-4"
+            objectFit="cover"
+          />
+        )}
         <p className={`${styles.dreamPageDescription} ${styles[theme]}`}>
           {dream.description}
         </p>
