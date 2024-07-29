@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const handleRouteChange = (url: URL) => {
       if (typeof window.gtag !== 'undefined') {
-        window.gtag('config', 'G-NMTNBVH54D', {
+        window.gtag('config', 'G-CPXC8HRFMG', {
           page_path: url,
         });
       }
@@ -87,7 +87,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-NMTNBVH54D"
+        src="https://www.googletagmanager.com/gtag/js?id=G-CPXC8HRFMG"
         strategy="afterInteractive"
       />
       <Script id="google-analytics" strategy="afterInteractive">
@@ -96,7 +96,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'G-NMTNBVH54D');
+          gtag('config', 'G-CPXC8HRFMG');
         `}
       </Script>
       <Script
