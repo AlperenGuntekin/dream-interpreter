@@ -30,6 +30,18 @@
   @apply leading-relaxed;
 }
 
+.dreamPageDescription h1 {
+  @apply text-3xl mb-4;
+}
+
+.dreamPageDescription h2 {
+  @apply text-2xl mb-4;
+}
+
+.dreamPageDescription p {
+  @apply mb-4;
+}
+
 .dreamPageLink {
   @apply font-medium block no-underline;
 }

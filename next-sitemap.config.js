@@ -6,8 +6,8 @@ module.exports = {
   priority: 0.9,
   robotsTxtOptions: {
     additionalSitemaps: [
-      'https://www.interpretationdream.com/my-custom-sitemap-1.xml',
-      'https://www.interpretationdream.com/my-custom-sitemap-2.xml',
+      'https://www.interpretationdream.com/sitemap-0.xml',
+      'https://www.interpretationdream.com/sitemap-1.xml',
     ],
     policies: [
       {

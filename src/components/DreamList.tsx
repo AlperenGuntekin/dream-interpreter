@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { Dream } from '../interfaces/dream';
 import dreamsData from '../data/dreams.json';
 import styles from '../styles/DreamList.module.css';
+import Image from 'next/image';
+import { Grid, Typography } from '@mui/material';
+import parse from 'html-react-parser';
 
 interface DreamListProps {
   darkMode: boolean;
@@ -57,12 +60,35 @@ const DreamList: React.FC<DreamListProps> = ({ darkMode }) => {
               href={`/dreams/${dream.slug}`}
               className={`${styles.dreamLink} ${styles[theme]}`}
             >
-              <h3 className={`${styles.dreamTitle} ${styles[theme]}`}>
-                {dream.title}
-              </h3>
-              <p className={`${styles.dreamDescription} ${styles[theme]}`}>
-                {dream.description.slice(0, 100)}...
-              </p>
+              <Grid container spacing={2}>
+                <Grid item md={9} xs={12}>
+                  <Typography
+                    variant="h3"
+                    className={`${styles.dreamTitle} ${styles[theme]}`}
+                  >
+                    {dream.title}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    className={`${styles.dreamDescription} ${styles[theme]}`}
+                  >
+                    {parse(dream.description.slice(0, 100))}...
+                  </Typography>
+                </Grid>
+                {dream.image && (
+                  <Grid item md={3} xs={12}>
+                    <Image
+                      src={dream.image}
+                      alt={dream.title}
+                      style={{ borderRadius: '16px' }}
+                      width={840}
+                      height={350}
+                      className="me-2 my-4 border"
+                      objectFit="cover"
+                    />
+                  </Grid>
+                )}
+              </Grid>
             </Link>
           </li>
         ))}
