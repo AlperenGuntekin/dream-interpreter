@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
             height={40}
             className="me-2 mt-1"
           />
-          Dream Interpretation
+          International Dream Interpretation
         </Link>
         <nav className={styles.nav}>
           <Link

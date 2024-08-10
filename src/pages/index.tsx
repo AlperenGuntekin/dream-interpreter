@@ -14,8 +14,8 @@ const Home: React.FC<HomeProps> = ({ darkMode }) => {
       className={`container mx-auto px-4 py-8 ${theme}`}
       style={{ minHeight: '80vh' }}
     >
-      <DreamList darkMode={darkMode} />
       <DreamAI darkMode={darkMode} />
+      <DreamList darkMode={darkMode} />
     </div>
   );
 };

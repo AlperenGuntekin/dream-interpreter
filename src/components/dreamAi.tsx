@@ -29,8 +29,32 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
     }
   }, [dream]);
 
+  useEffect(() => {
+    const lastRequestTime = localStorage.getItem('lastRequestTime');
+    if (lastRequestTime) {
+      const now = new Date().getTime();
+      const timeDiff = now - parseInt(lastRequestTime, 10);
+      if (timeDiff < 3 * 60 * 60 * 1000) {
+        // 3 saat
+        setError('You can only submit a request every 3 hours.');
+      }
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const lastRequestTime = localStorage.getItem('lastRequestTime');
+    const now = new Date().getTime();
+
+    if (
+      lastRequestTime &&
+      now - parseInt(lastRequestTime, 10) < 3 * 60 * 60 * 1000
+    ) {
+      setError('You can only submit a request every 3 hours.');
+      return;
+    }
+
     setLoading(true);
     setError('');
     try {
@@ -47,6 +71,8 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
 
       const data = await response.json();
       setInterpretation(data.interpretation);
+      localStorage.setItem('lastRequestTime', now.toString());
+      setOpenModal(true);
       setShowEmailForm(true);
     } catch (err: any) {
       console.error('Interpretation Error:', err);
@@ -146,9 +172,10 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
         {showEmailForm && (
           <div className={`${styles.emailForm} ${styles[theme]}`}>
             <p className="mb-2">
-              Partial interpretation: {interpretation.substring(0, 500)}...
+              {/* Partial interpretation: {interpretation.substring(0, 500)}... */}
+              {interpretation}
             </p>
-            <form
+            {/* <form
               onSubmit={handleEmailSubmit}
               className="flex items-center justify-between"
             >
@@ -167,7 +194,7 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
               >
                 {loading ? 'Sending...' : 'Send Full Interpretation'}
               </button>
-            </form>
+            </form> */}
           </div>
         )}
       </div>

@@ -40,7 +40,7 @@ const DreamList: React.FC<DreamListProps> = ({ darkMode }) => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Dream Journal</h1>
+      <h1 className={styles.title}>International Dream Journal</h1>
       <div className="mb-6">
         <input
           type="text"
