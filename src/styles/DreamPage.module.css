@@ -42,6 +42,10 @@
   @apply mb-4;
 }
 
+.dreamPageDescription a {
+  @apply text-blue-500;
+}
+
 .dreamPageLink {
   @apply font-medium block no-underline;
 }

@@ -14,18 +14,24 @@ declare global {
   }
 }
 
+if (typeof window !== 'undefined') {
+  window.gtag = window.gtag || function () {};
+  window.adsbygoogle = window.adsbygoogle || [];
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    const handleRouteChange = (url: URL) => {
+    const handleRouteChange = (url: string) => {
       if (typeof window.gtag !== 'undefined') {
         window.gtag('config', 'G-CPXC8HRFMG', {
           page_path: url,
         });
       }
     };
+
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
@@ -35,6 +41,22 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const savedDarkMode = localStorage.getItem('darkMode') === 'true';
     setDarkMode(savedDarkMode);
+
+    if (savedDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.add('light');
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined' && window.adsbygoogle) {
+        window.adsbygoogle.push({});
+      }
+    } catch (e) {
+      console.error('Adsbygoogle initialization error:', e);
+    }
   }, []);
 
   useEffect(() => {
@@ -89,6 +111,19 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-CPXC8HRFMG"
         strategy="afterInteractive"
+        onError={(e) => {
+          console.error('Google Analytics script failed to load', e);
+        }}
+      />
+
+      <Script
+        id="adsense"
+        async
+        strategy="afterInteractive"
+        onError={(e) => {
+          console.error('AdSense script failed to load', e);
+        }}
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5633161613176687`}
       />
       <Script id="google-analytics" strategy="afterInteractive">
         {`
@@ -96,7 +131,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'G-CPXC8HRFMG');
+          gtag('config', 'G-CPXC8HRFMG', {
+            page_path: window.location.pathname,
+          });
         `}
       </Script>
       <Script
