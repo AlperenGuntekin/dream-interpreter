@@ -6,3 +6,10 @@ export interface Dream {
   title: string;
   description: string;
 }
+
+export interface Comment {
+  name: string;
+  email?: string;
+  comment: string;
+  createdAt: Date;
+}

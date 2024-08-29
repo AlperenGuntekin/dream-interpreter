@@ -6,6 +6,7 @@ import Footer from '@/src/utils/footer';
 import '../styles/globals.css';
 import Script from 'next/script';
 import Head from 'next/head';
+import { app } from '../lib/firebase';
 
 declare global {
   interface Window {
@@ -37,6 +38,19 @@ function MyApp({ Component, pageProps }: AppProps) {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      import('firebase/analytics')
+        .then(({ getAnalytics }) => {
+          const analytics = getAnalytics(app);
+          console.log('Analytics initialized:', analytics);
+        })
+        .catch((error) => {
+          console.error('Analytics initialization failed:', error);
+        });
+    }
+  }, []);
 
   useEffect(() => {
     const savedDarkMode = localStorage.getItem('darkMode') === 'true';

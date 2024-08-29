@@ -11,6 +11,7 @@ import Image from 'next/image';
 import parse from 'html-react-parser';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
+import CommentSection from '@/src/components/CommentSection';
 
 interface DreamProps {
   dream: Dream;
@@ -85,6 +86,7 @@ const DreamPage = ({
             Back to Home
           </Link>
         </div>
+        <CommentSection dreamId={dream.slug} darkMode={darkMode} />
         <DreamAI darkMode={darkMode} />
         <div className={`${styles.dreamPageContent} ${styles[theme]}`}>
           <a href="https://www.ai-tarot.online/" target="blank">
