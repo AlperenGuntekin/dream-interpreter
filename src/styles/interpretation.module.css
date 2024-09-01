@@ -1,0 +1,79 @@
+.container {
+  @apply min-h-screen flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8;
+}
+
+.container.light {
+  @apply bg-white;
+}
+
+.container.dark {
+  @apply bg-gray-900;
+}
+
+.content {
+  @apply max-w-4xl w-full rounded-lg shadow-md overflow-hidden p-6 mb-8;
+}
+
+.content.light {
+  @apply bg-white text-gray-900;
+}
+
+.content.dark {
+  @apply bg-gray-800 text-white;
+}
+
+.title {
+  @apply text-4xl font-bold mb-6 text-center;
+}
+
+.dream {
+  @apply text-lg leading-relaxed mb-6;
+}
+
+.dream.light {
+  @apply text-gray-900;
+}
+
+.dream.dark {
+  @apply text-gray-100;
+}
+
+.interpretation {
+  @apply p-4 border rounded-lg;
+}
+
+.interpretation.light {
+  @apply bg-white border-gray-300 text-gray-800;
+}
+
+.interpretation.dark {
+  @apply bg-gray-800 border-gray-600 text-gray-100;
+}
+
+.interpretationTitle {
+  @apply text-2xl font-bold mb-4;
+}
+
+.interpretationContent {
+  @apply text-lg leading-relaxed;
+}
+
+.interpretationContent.light {
+  @apply text-gray-700;
+}
+
+.interpretationContent.dark {
+  @apply text-gray-300;
+}
+
+.backLink {
+  @apply font-medium block no-underline text-center mt-6;
+}
+
+.backLink.light {
+  @apply text-gray-800 hover:text-blue-700;
+}
+
+.backLink.dark {
+  @apply text-blue-300 hover:text-blue-500;
+}

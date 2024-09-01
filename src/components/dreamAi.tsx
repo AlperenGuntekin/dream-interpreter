@@ -1,22 +1,13 @@
-'use client';
-
 import { useState, useEffect, useRef } from 'react';
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Typography,
-} from '@mui/material';
+import { useRouter } from 'next/router';
 import styles from '../styles/DreamAI.module.css';
+import Script from 'next/script';
 
 const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
+  const router = useRouter();
   const [dream, setDream] = useState('');
+  const [isAdDisplayed, setIsAdDisplayed] = useState(false);
   const [interpretation, setInterpretation] = useState('');
-  const [email, setEmail] = useState('');
-  const [openModal, setOpenModal] = useState(false);
-  const [showEmailForm, setShowEmailForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -30,12 +21,21 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
   }, [dream]);
 
   useEffect(() => {
+    if (isAdDisplayed) {
+      const timer = setTimeout(() => {
+        handleInterpretation();
+      }, 10000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isAdDisplayed]);
+
+  useEffect(() => {
     const lastRequestTime = localStorage.getItem('lastRequestTime');
     if (lastRequestTime) {
       const now = new Date().getTime();
       const timeDiff = now - parseInt(lastRequestTime, 10);
       if (timeDiff < 3 * 60 * 60 * 1000) {
-        // 3 saat
         setError('You can only submit a request every 3 hours.');
       }
     }
@@ -55,6 +55,11 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
       return;
     }
 
+    setIsAdDisplayed(true);
+    setError('');
+  };
+
+  const handleInterpretation = async () => {
     setLoading(true);
     setError('');
     try {
@@ -65,65 +70,33 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
       });
 
       if (!response.ok) {
-        console.error('Response Error:', response);
         throw new Error(`Failed to interpret dream: ${response.statusText}`);
       }
 
       const data = await response.json();
       setInterpretation(data.interpretation);
-      localStorage.setItem('lastRequestTime', now.toString());
-      setOpenModal(true);
-      setShowEmailForm(true);
-    } catch (err: any) {
-      console.error('Interpretation Error:', err);
-      setError(
-        'An error occurred while interpreting your dream. Please try again.'
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+      localStorage.setItem('lastRequestTime', new Date().getTime().toString());
 
-  const handleEmailSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-    try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          subject: 'Your Dream Interpretation',
-          message: interpretation,
-        }),
-      });
-
-      if (!response.ok)
-        throw new Error(`Failed to send email: ${response.statusText}`);
-
-      // Save the dream and email in the database
+      // Interpretation and dream saving to db
       await fetch('/api/save-dream', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email,
           dream,
-          interpretation,
+          interpretation: data.interpretation,
         }),
       });
 
-      setOpenModal(true);
+      // Navigation
+      router.push({
+        pathname: '/interpretation',
+        query: { dream, interpretation: data.interpretation },
+      });
     } catch (err: any) {
-      console.error('Email Sending Error:', err);
-      setError(`An error occurred while sending the email: ${err.message}`);
+      setError(`An error occurred: ${err.message}`);
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleClose = () => {
-    setOpenModal(false);
   };
 
   const handleDreamChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -136,87 +109,70 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
   const theme = darkMode ? 'dark' : 'light';
 
   return (
-    <>
-      <div className={`${styles.dreamAIContainer} ${styles[theme]}`}>
-        <p className={styles.paraph}>
-          Didn't find what you were looking for? <br /> How about explaining
-          your dream in more detail?
-        </p>
-        <form
-          onSubmit={handleSubmit}
-          className={`${styles.form} ${styles[theme]}`}
-        >
-          <textarea
-            ref={textareaRef}
-            value={dream}
-            onChange={handleDreamChange}
-            placeholder="Enter your dream..."
-            className={`${styles.textarea} ${styles[theme]}`}
-            required
-            spellCheck={false}
-          />
-          <div
-            className={`${styles.charCount} ${styles[theme]} flex justify-end mb-1`}
+    <div className={`${styles.dreamAIContainer} ${styles[theme]}`}>
+      {!isAdDisplayed ? (
+        <>
+          <p className={styles.paraph}>
+            Didn't find what you were looking for? <br /> How about explaining
+            your dream in more detail?
+          </p>
+          <form
+            onSubmit={handleSubmit}
+            className={`${styles.form} ${styles[theme]}`}
           >
-            {dream.length} / 1700 characters
-          </div>
-          <button
-            type="submit"
-            className={`${styles.button} ${styles[theme]}`}
-            disabled={loading}
-          >
-            {loading ? 'Interpreting...' : 'Interpret Dream'}
-          </button>
-        </form>
-        {error && <p className={`${styles.error} ${styles[theme]}`}>{error}</p>}
-        {showEmailForm && (
-          <div className={`${styles.emailForm} ${styles[theme]}`}>
-            <p className="mb-2">
-              {/* Partial interpretation: {interpretation.substring(0, 500)}... */}
-              {interpretation}
-            </p>
-            {/* <form
-              onSubmit={handleEmailSubmit}
-              className="flex items-center justify-between"
+            <textarea
+              ref={textareaRef}
+              value={dream}
+              onChange={handleDreamChange}
+              placeholder="Enter your dream..."
+              className={`${styles.textarea} ${styles[theme]}`}
+              required
+              spellCheck={false}
+            />
+            <div
+              className={`${styles.charCount} ${styles[theme]} flex justify-end mb-1`}
             >
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email for full interpretation"
-                className={`${styles.input} ${styles[theme]} mb-0`}
-                required
-              />
-              <button
-                type="submit"
-                className={`${styles.button} ${styles[theme]}`}
-                disabled={loading}
-              >
-                {loading ? 'Sending...' : 'Send Full Interpretation'}
-              </button>
-            </form> */}
+              {dream.length} / 1700 characters
+            </div>
+            <button
+              type="submit"
+              className={`${styles.button} ${styles[theme]}`}
+              disabled={loading}
+            >
+              {loading ? 'Interpreting...' : 'Interpret Dream'}
+            </button>
+          </form>
+          {error && (
+            <p className={`${styles.error} ${styles[theme]}`}>{error}</p>
+          )}
+        </>
+      ) : (
+        <div>
+          <p className={styles.paraph}>
+            Your dream is being interpreted, please wait.
+          </p>
+          <div className="adsense-ad">
+            <Script
+              id="adsense"
+              async
+              strategy="afterInteractive"
+              onError={(e) => {
+                console.error('AdSense script failed to load', e);
+              }}
+              src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5633161613176687`}
+            />
+            <ins
+              className="adsbygoogle"
+              style={{ display: 'block' }}
+              data-ad-client="ca-pub-5633161613176687"
+              data-ad-slot="1234567890"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
           </div>
-        )}
-      </div>
-      <Dialog
-        open={openModal}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{'Email Sent'}</DialogTitle>
-        <DialogContent>
-          <Typography variant="body1">
-            <h1>Full interpretation sent to your email!</h1>
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
+        </div>
+      )}
+    </div>
   );
 };
 
