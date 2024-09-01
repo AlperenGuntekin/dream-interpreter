@@ -23,7 +23,7 @@
 }
 
 .dreamPageTitle {
-  @apply text-4xl font-bold mb-6;
+  @apply text-4xl font-bold mb-6 mt-2;
 }
 
 .dreamPageDescription {
@@ -84,4 +84,34 @@
 
 .relatedDreamDescription.dark {
   @apply text-gray-300 mb-2;
+}
+
+.breadcrumb {
+  @apply flex items-center space-x-2 text-gray-500;
+}
+
+.breadcrumbItem {
+  @apply text-gray-500 hover:text-gray-700;
+}
+
+.breadcrumbItem:not(:last-child)::after {
+  content: '>';
+  @apply mx-2 text-gray-400;
+}
+
+.share-buttons {
+  @apply flex space-x-2 mt-4 w-1/2 justify-end;
+}
+
+.share-buttons button {
+  @apply cursor-pointer;
+}
+
+.listenButtonDiv {
+  @apply w-full justify-end flex;
+}
+
+.listenButton {
+  @apply flex items-center justify-center p-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+  @apply w-12 h-12 mb-4;
 }

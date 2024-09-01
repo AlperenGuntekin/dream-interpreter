@@ -1,4 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { Dream } from '../../interfaces/dream';
 import dreamsData from '../../data/dreams.json';
@@ -12,6 +14,8 @@ import parse from 'html-react-parser';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
 import CommentSection from '@/src/components/CommentSection';
+import { Breadcrumb } from '@/src/components/Breadcrumb';
+import ShareButtons from '@/src/components/ShareButtons';
 
 interface DreamProps {
   dream: Dream;
@@ -33,6 +37,14 @@ const DreamPage = ({
     setIsClient(true);
   }, []);
 
+  const handleSpeech = () => {
+    const synth = window.speechSynthesis;
+    const plainText = dream.description.replace(/<[^>]+>/g, '');
+    const utterance = new SpeechSynthesisUtterance(plainText);
+    utterance.lang = 'en-US';
+    synth.speak(utterance);
+  };
+
   if (!isClient) {
     return null;
   }
@@ -42,6 +54,7 @@ const DreamPage = ({
   }
 
   const theme = darkMode ? 'dark' : 'light';
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
 
   return (
     <>
@@ -65,6 +78,7 @@ const DreamPage = ({
         <GoogleAdsense pId="ca-pub-5633161613176687" />
 
         <div className={`${styles.dreamPageContent} ${styles[theme]}`}>
+          <Breadcrumb title={dream.title} />
           <h1 className={`${styles.dreamPageTitle} ${styles[theme]}`}>
             {dream.title}
           </h1>
@@ -79,6 +93,12 @@ const DreamPage = ({
               objectFit="cover"
             />
           )}
+          <div className={`${styles.listenButtonDiv} ${styles[theme]}`}>
+            <button onClick={handleSpeech} className={styles.listenButton}>
+              <FontAwesomeIcon icon={faMicrophone} />
+            </button>
+          </div>
+
           <p className={`${styles.dreamPageDescription} ${styles[theme]}`}>
             {parse(dream.description)}
           </p>
@@ -86,6 +106,7 @@ const DreamPage = ({
             Back to Home
           </Link>
         </div>
+        <ShareButtons url={currentUrl} title={dream.title} />
         <CommentSection dreamId={dream.slug} darkMode={darkMode} />
         <DreamAI darkMode={darkMode} />
         <div className={`${styles.dreamPageContent} ${styles[theme]}`}>
