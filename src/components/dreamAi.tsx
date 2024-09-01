@@ -165,10 +165,13 @@ const DreamAI = ({ darkMode }: { darkMode: boolean }) => {
               className="adsbygoogle"
               style={{ display: 'block' }}
               data-ad-client="ca-pub-5633161613176687"
-              data-ad-slot="1234567890"
+              data-ad-slot="2405656814"
               data-ad-format="auto"
               data-full-width-responsive="true"
             ></ins>
+            <Script id="ads-init" strategy="afterInteractive">
+              {`(adsbygoogle = window.adsbygoogle || []).push({});`}
+            </Script>
           </div>
         </div>
       )}
